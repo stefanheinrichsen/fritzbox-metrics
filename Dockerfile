@@ -2,6 +2,8 @@ FROM python:slim-buster
 
 MAINTAINER Stefan Heinrichsen "fb-metrics@stefan.heinrichsen.net"
 
+# Create our script folder and change into it
+RUN mkdir /opt/fritzbox-metrics
 WORKDIR /opt/fritzbox-metrics
 
 # Copy the requirements and install them
