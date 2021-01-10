@@ -34,22 +34,35 @@ metrics_names : Tuple[str, List[str]] = [
     ("LANEthernetInterfaceConfig1", [
         "GetStatistics"
     ]),
+    ("WANIPConnection1", [
+        "GetPortMappingNumberOfEntries"
+    ])
+]
+
+# For DSL boxes
+metrics_names_dsl : Tuple[str, List[str]] = [
     ("WANDSLInterfaceConfig1", [
         "GetStatisticsTotal"
     ]),
     ("WANDSLLinkConfig1", [
         "GetStatistics"
-    ]),
-    ("WANIPConnection1", [
-        "GetPortMappingNumberOfEntries"
     ])
 ]
+
+# For cable boxes
+metrics_names_cable : Tuple[str, List[str]] = [
+    ("WANCommonInterfaceConfig1", [
+        "GetCommonLinkProperties"
+    ])
+]
+
 
 def main() -> None:
     setting_keys: List[str] = [
         "FRITZ_ADDRESS",
         "FRITZ_USERNAME",
         "FRITZ_PASSWORD",
+        "FRITZ_TYPE",
         "TELEGRAF_HOSTNAME",
         "TELEGRAF_PORT",
         "SAMPLE_PERIOD"
@@ -64,6 +77,11 @@ def main() -> None:
     # Add optional settings, they are
     settings["PRINT_DATA"] = "PRINT_DATA" in os.environ and os.environ["PRINT_DATA"] != "False"
     settings["FRITZ_USE_TLS"] = "FRITZ_USE_TLS" in os.environ and os.environ["FRITZ_USE_TLS"] != "False"
+
+    if "FRITZ_TYPE"=="cable":
+         metrics_names=metrics_names+metrics_names_cable
+    else:
+         metrics_names=metrics_names+metrics_names_dsl
 
     # Print information about the current configuration
     print("Current configuration:")
