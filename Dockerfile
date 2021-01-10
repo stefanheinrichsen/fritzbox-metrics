@@ -1,6 +1,6 @@
 FROM python:slim-buster
 
-MAINTAINER Harmjan Treep "mail@harmjantreep.nl"
+MAINTAINER Stefan Heinrichsen "fb-metrics@stefan.heinrichsen.net"
 
 WORKDIR /opt/fritzbox-metrics
 
