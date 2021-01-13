@@ -65,7 +65,8 @@ def main() -> None:
         "FRITZ_TYPE",
         "TELEGRAF_HOSTNAME",
         "TELEGRAF_PORT",
-        "SAMPLE_PERIOD"
+        "SAMPLE_PERIOD",
+        "INFLUX_METRIC"
     ]
     # Check if all environment keys are suplied and if they aren't end the program via an exception
     missing_keys = [key for key in setting_keys if key not in os.environ]
@@ -77,9 +78,6 @@ def main() -> None:
     # Add optional settings, they are
     settings["PRINT_DATA"] = "PRINT_DATA" in os.environ and os.environ["PRINT_DATA"] != "False"
     settings["FRITZ_USE_TLS"] = "FRITZ_USE_TLS" in os.environ and os.environ["FRITZ_USE_TLS"] != "False"
-
-#    print("Testausgabe...")
-#    print(metrics_name_complete)
 
     if settings["FRITZ_TYPE"]=="cable":
          metrics_names_complete=metrics_names+metrics_names_cable
@@ -107,6 +105,7 @@ def main() -> None:
     telegraf_client = TelegrafClient(
         host=settings["TELEGRAF_HOSTNAME"],
         port=int(settings["TELEGRAF_PORT"]))
+#        tags={'host':'Fritzbox'})
 
     # Set the sample period variable
     SAMPLE_PERIOD = float(settings["SAMPLE_PERIOD"])
@@ -136,7 +135,7 @@ def main() -> None:
                     data[f"{service}.{key}"] = value
 
         # Send the collected data to telegraf
-        telegraf_client.metric("router", data)
+        telegraf_client.metric(settings["INFLUX_METRIC"], data)
 
         # Print the data depending on the settings
         if settings["PRINT_DATA"]:
