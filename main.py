@@ -78,10 +78,13 @@ def main() -> None:
     settings["PRINT_DATA"] = "PRINT_DATA" in os.environ and os.environ["PRINT_DATA"] != "False"
     settings["FRITZ_USE_TLS"] = "FRITZ_USE_TLS" in os.environ and os.environ["FRITZ_USE_TLS"] != "False"
 
-    if "FRITZ_TYPE"=="cable":
-         metrics_names=metrics_names+metrics_names_cable
+#    print("Testausgabe...")
+#    print(metrics_name_complete)
+
+    if settings["FRITZ_TYPE"]=="cable":
+         metrics_names_complete=metrics_names+metrics_names_cable
     else:
-         metrics_names=metrics_names+metrics_names_dsl
+         metrics_names_complete=metrics_names+metrics_names_dsl
 
     # Print information about the current configuration
     print("Current configuration:")
@@ -110,7 +113,7 @@ def main() -> None:
 
     # Print some debug info that goes to docker log
     print(f"Polling the following metrics from {settings['FRITZ_ADDRESS']}")
-    for service, actions in metrics_names:
+    for service, actions in metrics_names_complete:
         print(f"\t{service}")
         for action in actions:
             print(f"\t\t{action}")
@@ -123,7 +126,7 @@ def main() -> None:
     while True:
         # Retrieve the data from the fritzbox and put it in the data dictionary
         data = {}
-        for service, actions in metrics_names:
+        for service, actions in metrics_names_complete:
             for action in actions:
                 result = fritz_connection.call_action(service, action)
                 for key, value in result.items():
