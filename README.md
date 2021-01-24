@@ -36,3 +36,6 @@ I use the follwing section in my telegraf.conf:
       service_address = "udp://:8092"
       data_format = "influx"
 
+## Various links
+- [AVM TR064 specification](https://avm.de/service/schnittstellen/) used by this container
+
