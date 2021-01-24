@@ -2,6 +2,10 @@
 
 A Docker Container to read metrics from a Fritzbox and place them into an influx db (via telegraf). Initially based on the work of this [repo](https://github.com/harmjan/fritzbox-metrics) by user [harmjan](https://github.com/harmjan).
 
+## Github and Docker Hub
+This repo is hosted on [Github](https://github.com/stefanheinrichsen/fritzbox-metrics).  
+The container is available on [Docker-Hub](https://hub.docker.com/r/silson/fritzbox-metrics).  
+
 ## Enviroment Variables
 
 Following variables must be set:
