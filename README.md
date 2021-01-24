@@ -1,4 +1,4 @@
-## Overview ##
+# Overview #
 
 A Docker Container to read metrics from a Fritzbox and place them into an influx db (via telegraf). Initially based on the work of this [repo](https://github.com/harmjan/fritzbox-metrics) by user [harmjan](https://github.com/harmjan).
 
@@ -18,8 +18,8 @@ SAMPLE_PERIOD=60
 
 Following variables can be set (below shows their default value)
 
-PRINT_DATA=false
-FRITZ_USE_TLS=false
+PRINT_DATA=false  
+FRITZ_USE_TLS=false  
 
 ## Telegraf Setup
 
